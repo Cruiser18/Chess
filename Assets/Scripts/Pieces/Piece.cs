@@ -1,31 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class Piece : MonoBehaviour, IPiece {
+public abstract class Piece : MonoBehaviour {
 
     protected bool isSelected = false;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    protected SquareScript currentPosition;
 
-    public bool IsSelected() 
+    protected bool IsSelected() 
     {
         return isSelected;
     }
 
-    public void MakeMove() 
+    protected virtual void MakeMove() 
     {
-
+        
     }
 
-    public bool IsMoveValid() 
+    protected virtual bool IsMoveValid()
     {
         return false;
     }

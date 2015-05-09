@@ -11,3 +11,4 @@ C:\Users\Christian\Documents\Unity\Chess\Temp\bin\Debug\Unity.CecilTools.dll
 C:\Users\Christian\Documents\Unity\Chess\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 C:\Users\Christian\Documents\Unity\Chess\obj\Debug\Assembly-CSharp.dll
 C:\Users\Christian\Documents\Unity\Chess\obj\Debug\Assembly-CSharp.pdb
+C:\Users\Christian\Documents\Unity\Chess\Temp\bin\Debug\UnityEditor.iOS.Extensions.Xcode.dll

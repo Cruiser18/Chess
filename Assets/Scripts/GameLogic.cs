@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameLogic : MonoBehaviour {
 
@@ -16,6 +17,5 @@ public class GameLogic : MonoBehaviour {
 	void Update () {
 	
 	}
-
     
 }
