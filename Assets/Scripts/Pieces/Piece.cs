@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public abstract class Piece : MonoBehaviour {
 
     protected bool isSelected = false;
+    protected abstract List<Move> MoveSet { get; set; }
 
     protected SquareScript currentPosition;
 
@@ -17,8 +18,5 @@ public abstract class Piece : MonoBehaviour {
         
     }
 
-    protected virtual bool IsMoveValid()
-    {
-        return false;
-    }
+    
 }

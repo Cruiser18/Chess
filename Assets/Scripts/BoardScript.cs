@@ -4,7 +4,10 @@ using System.Collections.Generic;
 
 public class BoardScript : MonoBehaviour {
 
-    private GameObject[,] boardSquares = new GameObject[8, 8];
+    public const int BOARDWIDTH = 8;
+    public const int BOARDHEIGHT = 8;
+
+    private GameObject[,] boardSquares = new GameObject[BOARDWIDTH, BOARDHEIGHT];
     public GameObject squarePrefab;
     public Material whiteSquareMaterial;
     public Material blackSquareMaterial;
@@ -49,9 +52,9 @@ public class BoardScript : MonoBehaviour {
     {
         int i, j;
 
-        for (i = 0; i < 8; i++)
+        for (i = 0; i < BOARDWIDTH; i++)
         {
-            for (j = 0; j < 8; j++)
+            for (j = 0; j < BOARDHEIGHT; j++)
             {
                 GameObject square = GameObject.Instantiate(squarePrefab, this.transform.position + (new Vector3(1, 0, 0) * i) + (new Vector3(0, 0, 1) * j), Quaternion.identity) as GameObject;
 
@@ -63,7 +66,26 @@ public class BoardScript : MonoBehaviour {
 
                 SquareScript squareScript = square.GetComponent<SquareScript>();
 
+                // Let squares know of their neighbors
+                if (j != 0)
+                {
+                    // Set this Square's squareBelow with previous square
+                    squareScript.SquareBelow = boardSquares[i, j - 1];
 
+                    // Set previous square's squareAbove with this square
+                    SquareScript previousSquareScript = boardSquares[i, j - 1].GetComponent<SquareScript>();
+                    previousSquareScript.SquareAbove = square;
+                }
+                if (i != 0)
+                {
+                    // Set this Square's SquareLeft with previous columns square
+                    squareScript.SquareLeft = boardSquares[i - 1, j];
+                    // Set previous Square's SquareRight to this square
+                    SquareScript previousSquareScript = boardSquares[i - 1, j].GetComponent<SquareScript>();
+                    previousSquareScript.SquareRight = square;
+                }
+
+                // Set material of squares
                 if(i % 2 == 0)
                 {
                     if (j % 2 == 1)
@@ -89,6 +111,24 @@ public class BoardScript : MonoBehaviour {
                 
             }
         }
+    }
+
+    // Shows the valid moves on chessboard when a piece is selected
+    protected void ShowValidMoves()
+    {
+
+    }
+
+    // Hides valid moves on chessboard when piece is unselected
+    protected void HideValidMoves()
+    {
+
+    }
+
+    // Takes some moves 
+    protected bool IsMoveValid()
+    {
+        return false;
     }
 
     private void SetInitialPiecesPlacement()

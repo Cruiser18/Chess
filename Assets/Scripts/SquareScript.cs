@@ -9,6 +9,16 @@ public class SquareScript : MonoBehaviour {
 
     private Renderer squareGraphicRenderer;
 
+    public GameObject SquareAbove;
+    public GameObject SquareRight;
+    public GameObject SquareBelow;
+    public GameObject SquareLeft;
+
+    /**
+     * Each square knows what square is above, to the right, below and left of it
+     * They know this so we can compare moves against the squares
+     * */
+
 	// Use this for initialization
 	void Start () {
 
