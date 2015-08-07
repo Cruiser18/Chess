@@ -1,51 +1,54 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class BoardScript : MonoBehaviour {
 
     public const int BOARDWIDTH = 8;
     public const int BOARDHEIGHT = 8;
 
-    private GameObject[,] boardSquares = new GameObject[BOARDWIDTH, BOARDHEIGHT];
     public GameObject squarePrefab;
     public Material whiteSquareMaterial;
     public Material blackSquareMaterial;
-
+    public GameObject pawnPrefab;
+    private GameObject[,] boardSquares = new GameObject[BOARDWIDTH, BOARDHEIGHT];
     private string[] squareHorizontalNames = { "a", "b", "c", "d", "e", "f", "g", "h", };
     private string[] squareVerticalNames = { "1", "2", "3", "4", "5", "6", "7", "8", };
-    private string[] squaresList = {
-                                       "a1", "b1", "c1", "d1", "e1", "f1", "g1", "h1",
-                                       "a2", "b2", "c2", "d2", "e2", "f2", "g2", "h2",
-                                       "a3", "b3", "c3", "d3", "e3", "f3", "g3", "h3",
-                                       "a4", "b4", "c4", "d4", "e4", "f4", "g4", "h4",
-                                       "a5", "b5", "c5", "d5", "e5", "f5", "g5", "h5",
-                                       "a6", "b6", "c6", "d6", "e6", "f6", "g6", "h6",
-                                       "a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7",
-                                       "a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8"
-                                   };
-
-    private Dictionary<string, string> piecePlacement = new Dictionary<string, string>()
-        {
-            {"a1", "whiteRook1"},
-            {"b1", "white1"}
-        };
-
-    public GameObject[] piecePrefabs;
-
-    public GameObject pawnPrefab;
+    private List<GameObject> squaresList = new List<GameObject>();
+    private List<KeyValuePair<string, Object>> WhitePiecesToPlace;
+    private List<GameObject> BoardPieces;
+        
 
 	// Use this for initialization
 	void Start () {
+
+        BoardPieces = new List<GameObject>();
+
+        CreatePieces();
 
         CreateGameBoard();
 
         PlacePieces();
 	}
 
+    private void CreatePieces()
+    {
+        WhitePiecesToPlace = new List<KeyValuePair<string, Object>>() {
+            new KeyValuePair<string, Object>("a2", pawnPrefab),
+            new KeyValuePair<string, Object>("b2", pawnPrefab),
+            new KeyValuePair<string, Object>("c2", pawnPrefab),
+            new KeyValuePair<string, Object>("d2", pawnPrefab),
+            new KeyValuePair<string, Object>("e2", pawnPrefab),
+            new KeyValuePair<string, Object>("f2", pawnPrefab),
+            new KeyValuePair<string, Object>("g2", pawnPrefab),
+            new KeyValuePair<string, Object>("h2", pawnPrefab)
+        };
+    }
+
 	// Update is called once per frame
 	void Update () {
-        Debug.Log(Enums.pieces.WhiteKing.GetType());
+        
 	}
 
     private void CreateGameBoard()
@@ -108,13 +111,13 @@ public class BoardScript : MonoBehaviour {
                         squareScript.SetMaterial(blackSquareMaterial);
                     }
                 }
-                
+                squaresList.Add(square);
             }
         }
     }
 
     // Shows the valid moves on chessboard when a piece is selected
-    protected void ShowValidMoves()
+    protected void ShowValidMoves(Piece piece)
     {
 
     }
@@ -126,15 +129,11 @@ public class BoardScript : MonoBehaviour {
     }
 
     // Takes some moves 
-    protected bool IsMoveValid()
+    protected bool IsMoveValid(Piece piece)
     {
         return false;
     }
 
-    private void SetInitialPiecesPlacement()
-    {
-        
-    }
     /*
     public Dictionary<string, Piece> GetInitialPiecesPlacement()
     {
@@ -143,16 +142,23 @@ public class BoardScript : MonoBehaviour {
 
     private void PlacePieces()
     {
-        /**
-         *  Iterate over list of board tiles
-         *  Compare each tile against list of where pieces should be placed
-         *  Place piece on tile and set piece color as well as position
-         * */
-        // Make the different pieces and place them on the board
-        //Dictionary<string, Piece> piecePlacement = new Dictionary<string, Piece>();
+        // Place the white pieces
+        foreach (KeyValuePair<string, Object> piece in WhitePiecesToPlace) 
+        {
+            foreach(GameObject square in squaresList) 
+            {
+                Vector3 myVector = squaresList.Where(x => x.name == piece.Key).Select(x => x.GetComponent<SquareScript>().transform.position).First();
 
-        //piecePlacement.Add("a1", new PawnPiece());
+                GameObject myPiece = Instantiate(piece.Value, myVector, Quaternion.identity) as GameObject;
 
-        GameObject piece = Instantiate(pawnPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+                myPiece.GetComponent<Piece>().color = Enums.colors.White;
+
+                BoardPieces.Add(myPiece);
+
+                break;
+            }
+        }
+
+        
     }
 }

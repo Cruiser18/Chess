@@ -21,7 +21,8 @@ public static class Enums {
         WhitePawn5,
         WhitePawn6,
         WhitePawn7,
-        WhitePawn8
+        WhitePawn8,
+        WhitePawn
     };
 
     public enum colors

@@ -47,14 +47,21 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\BoardScript.cs" />
-     <Compile Include="Assets\Scripts\CameraControls.cs" />
      <Compile Include="Assets\Scripts\Command.cs" />
      <Compile Include="Assets\Scripts\Enums.cs" />
      <Compile Include="Assets\Scripts\GameLogic.cs" />
+     <Compile Include="Assets\Scripts\GameStateMachine.cs" />
+     <Compile Include="Assets\Scripts\InputHandler.cs" />
      <Compile Include="Assets\Scripts\Move.cs" />
+     <Compile Include="Assets\Scripts\MoveSet.cs" />
      <Compile Include="Assets\Scripts\Pieces\PawnPiece.cs" />
      <Compile Include="Assets\Scripts\Pieces\Piece.cs" />
      <Compile Include="Assets\Scripts\SquareScript.cs" />
+     <Compile Include="Assets\Scripts\State.cs" />
+     <Compile Include="Assets\Scripts\StateMachine.cs" />
+     <Compile Include="Assets\Scripts\States\GameStateBlackTurn.cs" />
+     <Compile Include="Assets\Scripts\States\GameStateExecutingMove.cs" />
+     <Compile Include="Assets\Scripts\States\GameStateWhiteTurn.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
